@@ -109,3 +109,11 @@ function voltarMenu(){
 };
         
 menu();
+
+function deletar(){
+  rl.question("Qual o numero do lembrete que deseja excluir ?", (i) => {
+    lembretes.splice(i,9);
+    console.log("lembrete excluido!");
+    voltarMenu();
+  })
+}
