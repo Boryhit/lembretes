@@ -65,6 +65,7 @@ function lembrete() {
             let novoLembrete = {
                 lembrete: input1,
                 prazo: input2,
+                concluido: false
             };
             lembretes.push(novoLembrete);
             console.log("===*Lembrete adicionando*===");
@@ -78,7 +79,8 @@ function listar() {
         console.log("Ainda não existem lembretes cadastrados!");
         voltarMenu();
     } else {
-        lembretes.forEach((element) => console.log(element));
+        lembretes.forEach((element, i) => 
+        console.log(`${i+1}. ${element.lembrete} - Prazo: ${element.prazo} - ${element.concluido ? 'Concluido' : 'Pendente'}`));
         voltarMenu();
     }
 };
