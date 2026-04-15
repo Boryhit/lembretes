@@ -65,6 +65,7 @@ function lembrete() {
             let novoLembrete = {
                 lembrete: input1,
                 prazo: input2,
+                concluido: false
             };
             lembretes.push(novoLembrete);
             console.log("===*Lembrete adicionando*===");
@@ -78,24 +79,53 @@ function listar() {
         console.log("Ainda não existem lembretes cadastrados!");
         voltarMenu();
     } else {
-        lembretes.forEach((element) => console.log(element));
+        lembretes.forEach((element, i) => 
+        console.log(`${i+1}. ${element.lembrete} - Prazo: ${element.prazo} - ${element.concluido ? 'Concluido' : 'Pendente'}`));
         voltarMenu();
+    }
+};
+
+function listar2() {
+    if (lembretes.length === 0){
+        console.log("Ainda não existem lembretes cadastrados!");
+        voltarMenu();
+    } else {
+        lembretes.forEach((element, i) => 
+        console.log(`${i+1}. ${element.lembrete} - Prazo: ${element.prazo} - ${element.concluido ? 'Concluido' : 'Pendente'}`));
     }
 };
         
 function editar() {
-    console.table(lembretes);
-    rl.question("Digite o index do lembrete que deseja ediatr: ", (i) => {
+    listar2();
+    rl.question("Digite o index do lembrete que deseja editar: ", (i) => {
         rl.question("Digite o seu novo ou o mesmo lembrete: ", (i1) => {
             rl.question("Digite o prazo editado do seu lembrete: ", (i2) =>  {
-                lembretes[i].lembrete = i1;
-                lembretes[i].prazo = i2;
+                lembretes[i-1].lembrete = i1;
+                lembretes[i-1].prazo = i2;
                 console.log("Lembrete editado!");
                 voltarMenu();
             });
         });
     });
 };
+
+function concluido() {
+    listar2();
+    rl.question("\nDigite o index do lembrete que deseja marcar como concluído: ", (index) => {
+        lembretes[parseInt(index)-1].concluido = true;
+        console.log("Concluído com sucesso!");
+        voltarMenu();
+    });
+};
+
+function deletar(){
+    listar2();
+    rl.question("Qual o numero do lembrete que deseja excluir ?", (i) => {
+        lembretes.splice(i-1,1);
+        console.log("Lembrete excluido!");
+        voltarMenu();
+    })
+}
         
 function limparTexto() {
     console.clear();
