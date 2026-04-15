@@ -74,29 +74,23 @@ function lembrete() {
     });
 };
 
-function listar() {
+function listar(voltarmenu = true) {
     if (lembretes.length === 0){
         console.log("Ainda não existem lembretes cadastrados!");
-        voltarMenu();
+        if (voltarmenu) {
+            voltarMenu();
+        }
     } else {
         lembretes.forEach((element, i) => 
         console.log(`${i+1}. ${element.lembrete} - Prazo: ${element.prazo} - ${element.concluido ? 'Concluido' : 'Pendente'}`));
-        voltarMenu();
-    }
-};
-
-function listar2() {
-    if (lembretes.length === 0){
-        console.log("Ainda não existem lembretes cadastrados!");
-        voltarMenu();
-    } else {
-        lembretes.forEach((element, i) => 
-        console.log(`${i+1}. ${element.lembrete} - Prazo: ${element.prazo} - ${element.concluido ? 'Concluido' : 'Pendente'}`));
+        if (voltarmenu) {
+            voltarMenu();
+        }
     }
 };
         
 function editar() {
-    listar2();
+    listar(false);
     rl.question("Digite o index do lembrete que deseja editar: ", (i) => {
         rl.question("Digite o seu novo ou o mesmo lembrete: ", (i1) => {
             rl.question("Digite o prazo editado do seu lembrete: ", (i2) =>  {
@@ -110,7 +104,7 @@ function editar() {
 };
 
 function concluido() {
-    listar2();
+    listar(false);
     rl.question("\nDigite o index do lembrete que deseja marcar como concluído: ", (index) => {
         lembretes[parseInt(index)-1].concluido = true;
         console.log("Concluído com sucesso!");
@@ -119,7 +113,7 @@ function concluido() {
 };
 
 function deletar(){
-    listar2();
+    listar(false);
     rl.question("Qual o numero do lembrete que deseja excluir ?", (i) => {
         lembretes.splice(i-1,1);
         console.log("Lembrete excluido!");
