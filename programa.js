@@ -23,7 +23,7 @@ rl.question("Digite a opção que você deseja: ", (input) => {
         case 1:
             limparTexto();
             console.log("Opção 1: Adicionar Lembrete.");
-            lembrete();
+            cadastrar();
             break;
         case 2:
             limparTexto();
@@ -59,7 +59,7 @@ rl.question("Digite a opção que você deseja: ", (input) => {
     });
 };
         
-function lembrete() {
+function cadastrar() {
     rl.question("Digite o seu novo lembrete: ", (input1) => {
         rl.question("Digite o prazo a ser cumprido do lembrete: ", (input2) => {
             let novoLembrete = {
