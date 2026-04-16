@@ -68,7 +68,7 @@ function lembrete() {
                 concluido: false
             };
             lembretes.push(novoLembrete);
-            console.log("===*Lembrete adicionando*===");
+            console.log("===*Lembrete adicionando!*===");
             voltarMenu();
         });
     });
@@ -90,36 +90,62 @@ function listar(voltarmenu = true) {
 };
         
 function editar() {
-    listar(false);
-    rl.question("Digite o index do lembrete que deseja editar: ", (i) => {
-        rl.question("Digite o seu novo ou o mesmo lembrete: ", (i1) => {
-            rl.question("Digite o prazo editado do seu lembrete: ", (i2) =>  {
-                lembretes[i-1].lembrete = i1;
-                lembretes[i-1].prazo = i2;
-                console.log("Lembrete editado!");
-                voltarMenu();
+    if (lembretes.length != 0) {
+        listar(false);
+        rl.question("Digite o index do lembrete que deseja editar: ", (i) => {
+            rl.question("Digite o seu novo ou o mesmo lembrete: ", (i1) => {
+                rl.question("Digite o prazo editado do seu lembrete: ", (i2) =>  {
+                    lembretes[i-1].lembrete = i1;
+                    lembretes[i-1].prazo = i2;
+                    console.log("===*Lembrete editado!*===");
+                    voltarMenu();
+                });
             });
         });
-    });
+    } else {
+        console.log("Você ainda não possui lembretes!");
+        console.log("Se deseja adicionar algum lembrete novo, volte ao Menu!");
+        voltarMenu();
+    };
+};
+
+function listarPendente(){
+    for (let i = 0; i < lembretes.length; i++){
+        if (lembretes[i].concluido === false) {
+            console.log(`${i+1}. ${lembretes[i].lembrete} - Prazo: ${lembretes[i].prazo} - ${lembretes[i].concluido ? 'Concluido' : 'Pendente'}`);
+        };
+    };
 };
 
 function concluido() {
-    listar(false);
-    rl.question("\nDigite o index do lembrete que deseja marcar como concluído: ", (index) => {
-        lembretes[parseInt(index)-1].concluido = true;
-        console.log("Concluído com sucesso!");
+    listarPendente();
+    if (lembretes.concluido === false) {
+        rl.question("\nDigite o index do lembrete que deseja marcar como concluído: ", (index) => {
+            lembretes[parseInt(index)-1].concluido = true;
+            console.log("Concluído com sucesso!");
+            voltarMenu();
+        });
+    } else {
+        console.log("Você não tem lembretes pendentes!");
+        console.log("Se deseja adicionar algum lembrete novo, volte ao Menu!");
         voltarMenu();
-    });
+    }
 };
 
 function deletar(){
-    listar(false);
-    rl.question("Qual o numero do lembrete que deseja excluir ?", (i) => {
+    if (lembretes.length != 0) {
+        listar(false);
+        rl.question("Qual o numero do lembrete que deseja excluir ?", (i) => {
         lembretes.splice(i-1,1);
         console.log("Lembrete excluido!");
         voltarMenu();
-    })
-}
+        });
+    } else {
+        console.log("Ainda não existem lembretes!");
+        console.log("Se deseja adicionar algum lembrete novo, volte ao Menu!");
+        voltarMenu();
+    };
+};
         
 function limparTexto() {
     console.clear();
@@ -133,11 +159,3 @@ function voltarMenu(){
 };
         
 menu();
-
-function deletar(){
-  rl.question("Qual o numero do lembrete que deseja excluir ?", (i) => {
-    lembretes.splice(i,9);
-    console.log("lembrete excluido!");
-    voltarMenu();
-  })
-}
